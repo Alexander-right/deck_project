@@ -1,0 +1,34 @@
+.App {
+  text-align: center;
+  margin: 0 auto;
+  background-image: url(images/parchment-f5126a8249a32eb235b139078b4cc13b5fb9d2c29b0e825569312681123d721a1f2e1addb4bad78f979933e561361e2ee2c5f5881ab4fef5385c66c6276c3b44.jpg);
+  min-height: 100%;
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 40vmin;
+    pointer-events: none;
+  }
+
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+
+  .App-link {
+    color: #61dafb;
+  }
+
+  .App__result{
+    box-shadow: inset 3px -1px 61px -29px rgba(0,0,0,0.75);
+    border: #7b664e 4px solid;
+  }
+}
+#root{
+  height: 100%;
+}

@@ -1,0 +1,20 @@
+.nav-item{
+  display: inline-block;
+  padding: 10px;
+
+  a{
+    color: #ffc107;
+    text-decoration: none;
+    font-size: 19px;
+  }
+}
+.nav-item_active{
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid;
+  margin: 0 auto;
+}
+.navigation{
+  background-image: url('../../images/wood_middle_repeat-b357e74839b5f16173c2f35d36ce22cae24d5b552e2eb1dd1fd7d3091eeccca8eb8ab5c0a2c42e9476357ac2c744e8e22ddc08c5d27be8c670fb9630065a9c01.png');
+  margin: 0 0 40px 0 ;
+}

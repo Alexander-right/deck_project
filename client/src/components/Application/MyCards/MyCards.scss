@@ -1,0 +1,17 @@
+.MyCards__result{
+  max-height: 460px;
+  overflow-y: auto;
+  box-shadow: inset 3px -1px 61px -29px rgba(0, 0, 0, 0.75);
+  border: 3px solid #ffc108;
+
+}
+
+.winrate_result{
+  .winrate_deck{
+    padding: 6px;
+    border-bottom:2px solid #7b664d;
+  }
+  .winrate_deck:last-child{
+    border:none
+  }
+}

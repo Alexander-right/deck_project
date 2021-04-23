@@ -1,0 +1,32 @@
+.Chat__wrapper {
+  width: 30%;
+  margin: 0 auto;
+  border: 3px #9c6d4a solid;
+  height: 400px;
+
+  .Chat {
+    height: 100%;
+
+    .Chat__messages {
+      height: 92%;
+    }
+
+    .Chat__wrapperForButtons {
+      height: 8%;
+      border-top: 3px #9c6d4a solid;
+
+      input {
+        width: 70%;
+        border: none;
+      }
+
+      button {
+        background-color: #8080805c;
+        height: 100%;
+        border: none;
+        width: 30%;
+      }
+    }
+  }
+}
+

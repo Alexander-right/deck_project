@@ -1,0 +1,37 @@
+.hs_card {
+  padding: 0;
+
+  img {
+    height: 395px;
+    width: inherit;
+  }
+}
+
+.App__result {
+  overflow-y: scroll;
+  max-height: 800px;
+}
+
+.cards-wrapper {
+  display: inline-flex;
+}
+
+
+/*---------------------FORMS-----------------------------*/
+form {
+  margin: 0 10px;
+
+  button {
+    display: block;
+    margin: 8px auto;
+  }
+
+  input {
+    display: block;
+    margin: 8px auto;
+  }
+}
+
+.signUpOn {
+  display: inline-flex;
+}

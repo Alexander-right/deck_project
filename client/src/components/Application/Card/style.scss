@@ -1,0 +1,13 @@
+.hs_card {
+  position: relative;
+
+  .hs_card__button {
+    position: absolute;
+    top: 4%;
+    width: 35%;
+    border-radius: 35px 35px 0 0;
+    left: 32%;
+    border: 1px solid #34312e;
+    background: #a69584;
+  }
+}
