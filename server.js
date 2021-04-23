@@ -11,6 +11,7 @@ const express = require('express');
 const app = express();
 const WebSocket = require('ws');
 const bodyParser = require('body-parser');
+const path = require('path')
 
 // Set our backend port to be either an environment variable or port 5000
 const port = process.env.PORT || 5000;
