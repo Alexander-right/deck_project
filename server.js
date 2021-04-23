@@ -10,9 +10,10 @@ const PUPPETEER = require('puppeteer');
 const express = require('express');
 const app = express();
 const WebSocket = require('ws');
+const bodyParser = require('body-parser');
 
 // Set our backend port to be either an environment variable or port 5000
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 
 // This application level middleware prints incoming requests to the servers console
 app.use((req, res, next) => {
@@ -29,6 +30,12 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
         res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     });
 };
+
+// Set up the bodyParser middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 /*Develop Branch*/
 function indexCardImages() {

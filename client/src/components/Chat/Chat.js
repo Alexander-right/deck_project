@@ -5,10 +5,10 @@ import './style/ChatStyle.scss'
 export class Chat extends React.Component{
 
     componentDidMount() {
-        const socket = new WebSocket("ws://localhost:3001");
+       /* const socket = new WebSocket("ws://localhost:3001");
         socket.onopen = () => {
             console.log("Connected by Websocket")
-        }
+        }*/
     }
 
 

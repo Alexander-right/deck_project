@@ -18,7 +18,7 @@ class Form extends Component {
     SendRequest(e){
         e.preventDefault();
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:3001/' + this.props.type, true);
+        xhr.open('POST', this.props.type, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
             if (this.readyState !== 4) return;

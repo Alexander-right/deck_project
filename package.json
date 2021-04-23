@@ -16,6 +16,7 @@
     "asn1": "^0.2.4",
     "async": "^2.6.2",
     "base64url": "^3.0.1",
+    "body-parser": "^1.19.0",
     "combined-stream": "^1.0.7",
     "concurrently": "^6.0.2",
     "core-util-is": "^1.0.2",
