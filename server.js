@@ -201,15 +201,15 @@ app.post('/api/v1/authorizaton', (request, reponse) => {
     });
 });
 
-// app.post('/tokenvalidate', (request, response) => {
-//     var tokenVerfify = '';
-//     request.on('data', function (chunk) {
-//         tokenVerfify += chunk.toString('utf8');
-//     }).on('end', function () {
-//         var decoded = jwt.verify(tokenVerfify, SECRET_KEY);
-//         decoded ? response.end('true') : response.end('false')
-//     });
-// });
+app.post('/tokenvalidate', (request, response) => {
+ var tokenVerfify = '';
+ request.on('data', function (chunk) {
+     tokenVerfify += chunk.toString('utf8');
+ }).on('end', function () {
+     var decoded = jwt.verify(tokenVerfify, SECRET_KEY);
+     decoded ? response.end('true') : response.end('false')
+ });
+});
 
 app.listen(3001, () => {
     console.log("Слушаю 3001 порт")
