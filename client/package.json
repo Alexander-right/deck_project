@@ -1,7 +1,7 @@
 {
-  "name": "my-app",
+  "name": "client",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "core-util-is": "^1.0.2",

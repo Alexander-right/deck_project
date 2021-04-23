@@ -21,21 +21,13 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(cors());
-
 // Set up the bodyParser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
-
-    app.get('*', function (req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-    });
-};
+app.use(cors());
 
 /*Develop Branch*/
 function indexCardImages() {
@@ -227,6 +219,15 @@ app.post('/tokenvalidate', (request, response) => {
      decoded ? response.end('true') : response.end('false')
  });
 });
+
+
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+
+    app.get('*', function (req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+};
 
 app.listen(port, () => {
     console.log(`BACK_END_SERVICE_PORT: ${port}`)
