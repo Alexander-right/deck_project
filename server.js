@@ -13,6 +13,9 @@ const WebSocket = require('ws');
 
 app.use(cors());
 
+const port = process.env.PORT || 3001;
+
+
 /*Develop Branch*/
 function indexCardImages() {
     let images = {};
@@ -211,7 +214,7 @@ app.post('/tokenvalidate', (request, response) => {
  });
 });
 
-app.listen(3001, () => {
-    console.log("Слушаю 3001 порт")
+app.listen(port, () => {
+    console.log(`BACK_END_SERVICE_PORT: ${port}`)
 });
 
