@@ -11,6 +11,15 @@ const express = require('express');
 const app = express();
 const WebSocket = require('ws');
 
+// Set our backend port to be either an environment variable or port 5000
+const port = process.env.PORT || 5000;
+
+// This application level middleware prints incoming requests to the servers console
+app.use((req, res, next) => {
+    console.log(`Request_Endpoint: ${req.method} ${req.url}`);
+    next();
+});
+
 app.use(cors());
 
 /*Develop Branch*/
@@ -211,7 +220,7 @@ app.post('/tokenvalidate', (request, response) => {
  });
 });
 
-app.listen(3001, () => {
-    console.log("Слушаю 3001 порт")
+app.listen(port, () => {
+    console.log(`BACK_END_SERVICE_PORT: ${port}`)
 });
 
