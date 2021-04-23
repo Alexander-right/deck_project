@@ -22,6 +22,14 @@ app.use((req, res, next) => {
 
 app.use(cors());
 
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+
+    app.get('*', function (req, res) {
+        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+};
+
 /*Develop Branch*/
 function indexCardImages() {
     let images = {};
