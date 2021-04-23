@@ -13,7 +13,7 @@ const WebSocket = require('ws');
 const bodyParser = require('body-parser');
 
 // Set our backend port to be either an environment variable or port 5000
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 
 // This application level middleware prints incoming requests to the servers console
 app.use((req, res, next) => {
@@ -50,13 +50,6 @@ function indexCardImages() {
     }
     return images
 }
-
-// ----------- WEBSOCKET SERVER
-const server = new WebSocket.Server({port: 8080});
-server.on("connection", (ws) => {
-    console.log("Подключлися пользователь")
-});
-
 
 app.post('/api/v1/Application/getCardPackWinrate', function (request, response) {
     let top5 = [];
