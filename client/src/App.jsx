@@ -17,7 +17,7 @@ class App extends React.Component{
             ));
             return matches ? decodeURIComponent(matches[1]) : undefined;
         }
-        /*let token = getCookie("name");
+        let token = getCookie("name");
         let xhr = new XMLHttpRequest();
         xhr.open('POST', '/api/v1/tokenvalidate', true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -32,8 +32,7 @@ class App extends React.Component{
                 auth.login();
             }
         };
-        xhr.send(token);*/
-        auth.login();
+        xhr.send(token);
     }
     render(){
         return(

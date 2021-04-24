@@ -17,8 +17,10 @@ class Form extends Component {
 
     SendRequest(e){
         e.preventDefault();
+        const type = this.props.type;
         let xhr = new XMLHttpRequest();
-        xhr.open('POST', this.props.type, true);
+        xhr.open('POST', `/api/v1/${this.props.type}`, true);
+        console.log(this.props.type);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
             if (this.readyState !== 4) return;
@@ -27,7 +29,7 @@ class Form extends Component {
                 alert('ошибка: ' + (this.status ? this.statusText : 'запрос не удался'));
                 return;
             }
-            if (this.props.type === 'authorization') { auth.login() }
+            if (type === 'authorization') { auth.login() }
             document.cookie = "token=" + xhr.responseText;
             console.log(document.cookie);
         };

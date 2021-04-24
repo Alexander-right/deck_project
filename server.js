@@ -1,6 +1,6 @@
 const HTTP = require("http");
 //const MONGOCLIENT = require("mongodb").MongoClient;
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const unirest = require("unirest");
 const SECRET_KEY = "QsafQAWRIOjh1";
 const IMGDATABASE = require('hearthstone-card-images');
@@ -11,7 +11,13 @@ const express = require('express');
 const app = express();
 const WebSocket = require('ws');
 const bodyParser = require('body-parser');
-const path = require('path')
+const path = require('path');
+
+const { JsonDB } = require('node-json-db');
+const { Config } = require('node-json-db/dist/lib/JsonDBConfig');
+const db = new JsonDB(new Config("myDataBase", true, false, '/'));
+
+const usersDBRoute = '/users';
 
 // Set our backend port to be either an environment variable or port 5000
 const port = process.env.PORT || 5000;
@@ -163,72 +169,43 @@ app.post('/api/v1/Application/getCards', function (request, response) {
 });
 
 app.post('/api/v1/register', (request, response) => {
-    var body = '';
-    request.on('data', function (chunk) {
-        body += chunk.toString('utf8');
-    }).on('end', function () {
-        var data = JSON.parse(body);
-        CLIENT.connect(function (err, CLIENT) {
-            const db = CLIENT.db("local");
-            const collection = db.collection("ReactDB");
-            let user = {login: data.login, password: data.password};
-            collection.insertOne(user, function (err, result) {
-                if (err) {
-                    return console.log(err);
-                }
-                console.log(result.ops);
-                CLIENT.close();
-            });
-        });
-        response.end();
-    });
+    if (!request.body.login || db.getData(usersDBRoute + request.body.login)) {
+        response.status(400);
+        response.send(JSON.stringify('invalid login'))
+    }
+    const userData = {
+      login: request.body.login,
+      password: request.body.password,
+      token: jwt.sign(request.body.login, SECRET_KEY),
+    };
+    db.push(usersDBRoute + request.body.login, userData);
+    response.end(JSON.stringify(200))
 });
 
-app.post('/api/v1/authorizaton', (request, reponse) => {
-    var authBody = '';
-    request.on('data', function (chunk) {
-        authBody += chunk.toString('utf8');
-    }).on('end', function () {
-        var data = JSON.parse(authBody);
-        CLIENT.connect(function (err, CLIENT) {
-            const db = CLIENT.db("node");
-            const collection = db.collection("user");
-            if (err) return console.log(err);
-
-            collection.findOne({login: data.login}, function (err, doc) {
-                console.log("---------");
-                if (doc.password && data.password && data.password !== doc.password) {
-                    console.log("Неверный пароль!");
-                }
-                console.log("Добро пожаловать!");
-                CLIENT.close();
-            });
-        });
-        var payload = {login: data.login};
-        const token = jwt.sign(payload, SECRET_KEY);
-        var respone = "Добро пожаловать " + data.login;
-        response.end(token);
-    });
+app.post('/api/v1/authorization', (request, response) => {
+    if (!request.body.login) {
+        response.status(400);
+        response.send(JSON.stringify('invalid login'))
+    }
+    const isValid = db.getData(usersDBRoute + request.body.login).password === request.body.password;
+    console.log(isValid)
+    const token = jwt.sign(request.body.login, SECRET_KEY);
+    response.end(token);
 });
 
-app.post('/tokenvalidate', (request, response) => {
- var tokenVerfify = '';
- request.on('data', function (chunk) {
-     tokenVerfify += chunk.toString('utf8');
- }).on('end', function () {
-     var decoded = jwt.verify(tokenVerfify, SECRET_KEY);
-     decoded ? response.end('true') : response.end('false')
- });
+app.post('api/v1/tokenvalidate', (request, response) => {
+    var tokenVerfify = '';
+    const decoded = jwt.verify(tokenVerfify, SECRET_KEY);
+    decoded ? response.end('true') : response.end('false')
 });
 
 
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
     app.use(express.static(path.join(__dirname, 'client/build')));
-
     app.get('*', function (req, res) {
         res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
     });
-};
+}
 
 app.listen(port, () => {
     console.log(`BACK_END_SERVICE_PORT: ${port}`)
