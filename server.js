@@ -20,7 +20,7 @@ const db = new JsonDB(new Config("myDataBase", true, false, '/'));
 const usersDBRoute = '/users';
 
 // Set our backend port to be either an environment variable or port 5000
-const port = process.env.PORT || 5000;
+const port = process.env['PORT'] || 5000;
 
 // This application level middleware prints incoming requests to the servers console
 app.use((req, res, next) => {
