@@ -169,7 +169,7 @@ app.post('/api/v1/Application/getCards', function (request, response) {
 });
 
 app.post('/api/v1/register', (request, response) => {
-    if (!request.body.login || db.exists(usersDBRoute + request.body.login)) {
+    if (!request.body.password || !request.body.login || db.exists(usersDBRoute + request.body.login)) {
         response.status(400);
         response.send(JSON.stringify('invalid login'))
     }
@@ -184,7 +184,7 @@ app.post('/api/v1/register', (request, response) => {
 
 app.post('/api/v1/authorization', (request, response) => {
     console.log(request.body)
-    if (!request.body.login) {
+    if (!request.body.login || !request.body.password) {
         response.status(400);
         response.send(JSON.stringify('invalid login'))
     }
