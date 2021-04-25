@@ -169,7 +169,7 @@ app.post('/api/v1/Application/getCards', function (request, response) {
 });
 
 app.post('/api/v1/register', (request, response) => {
-    if (!request.body.login || db.getData(usersDBRoute + request.body.login)) {
+    if (!request.body.login || db.exists(usersDBRoute + request.body.login)) {
         response.status(400);
         response.send(JSON.stringify('invalid login'))
     }
@@ -183,20 +183,30 @@ app.post('/api/v1/register', (request, response) => {
 });
 
 app.post('/api/v1/authorization', (request, response) => {
+    console.log(request.body)
     if (!request.body.login) {
         response.status(400);
         response.send(JSON.stringify('invalid login'))
     }
     const isValid = db.getData(usersDBRoute + request.body.login).password === request.body.password;
-    console.log(isValid)
-    const token = jwt.sign(request.body.login, SECRET_KEY);
-    response.end(token);
+    if (isValid) {
+        const token = jwt.sign(request.body.login, SECRET_KEY);
+        response.end(JSON.stringify({ token, login: request.body.login}));
+    }
+    response.status(400);
+    response.send('invalid password')
+
 });
 
-app.post('api/v1/tokenvalidate', (request, response) => {
-    var tokenVerfify = '';
-    const decoded = jwt.verify(tokenVerfify, SECRET_KEY);
-    decoded ? response.end('true') : response.end('false')
+app.post('/api/v1/tokenvalidate', (request, response) => {
+    const token = request.body.token;
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const isValidUser = db.exists(usersDBRoute + decoded);
+    if (!isValidUser) {
+        response.status(400);
+        response.send('invalid token');
+    }
+    response.end(JSON.stringify({ login: decoded }));
 });
 
 

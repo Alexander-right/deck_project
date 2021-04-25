@@ -15,6 +15,7 @@ export class DeckChooser extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props)
         this.state = {
             deckLinks: this.props.Decks.map((link, index) => {
                 return (
@@ -71,7 +72,7 @@ export class DeckChooser extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        Decks: state
+        Decks: state.cards
     }
 };
 const mapdispatchToProps = (dispatch) => ({

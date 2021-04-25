@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import { connect } from "react-redux";
 //import '../../ComponentsCss.scss';
 import PropTypes from 'prop-types'
 import auth from './../Auth/Auth.js';
+import * as actionTypes from "../../../Redux/actionTypes";
 
 
 class Form extends Component {
@@ -18,6 +20,8 @@ class Form extends Component {
     SendRequest(e){
         e.preventDefault();
         const type = this.props.type;
+        const authDispatch = this.props.Auth;
+        const setLogin = this.props.SetLogin;
         let xhr = new XMLHttpRequest();
         xhr.open('POST', `/api/v1/${this.props.type}`, true);
         console.log(this.props.type);
@@ -29,9 +33,18 @@ class Form extends Component {
                 alert('ошибка: ' + (this.status ? this.statusText : 'запрос не удался'));
                 return;
             }
-            if (type === 'authorization') { auth.login() }
-            document.cookie = "token=" + xhr.responseText;
-            console.log(document.cookie);
+            if (type === 'authorization') {
+                try {
+                    console.log(JSON.parse(xhr.response))
+                    document.cookie = "token=" + JSON.parse(xhr.responseText).token;
+                    console.log(document.cookie);
+                    setLogin(JSON.parse(xhr.response).login)
+                    authDispatch()
+                } catch (err) {
+                    console.error(err)
+                }
+            }
+
         };
         let data = JSON.stringify({"login": this.state.login, "password": this.state.password});
         xhr.send(data);
@@ -55,7 +68,18 @@ class Form extends Component {
     }
 }
 
-export default Form;
+const mapStateToProps = (state) => {
+    return {
+        Decks: state.auth
+    }
+};
+
+const mapDispatchToProps = (dispatch) => ({
+    Auth: () => dispatch({type: 'AUTH'}),
+    SetLogin: (login) => dispatch({ type: 'SET_LOGIN', payload: login})
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
 
 Form.propTypes = {
     forButton: PropTypes.string,

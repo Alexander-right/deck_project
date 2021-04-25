@@ -1,9 +1,7 @@
 import * as actionTypes from '../actionTypes';
 import InitialState from '../InitialState'
-import {createStore} from "redux";
 
-
-export function cardsForMyCards(state = InitialState, action) {
+export default function(state = InitialState, action) {
     switch (action.type) {
         case actionTypes.ADDDECK:
             state.push([]);
@@ -18,5 +16,3 @@ export function cardsForMyCards(state = InitialState, action) {
             return ([...state])
     }
 }
-
-export const store = createStore(cardsForMyCards);

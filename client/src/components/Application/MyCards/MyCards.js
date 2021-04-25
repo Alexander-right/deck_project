@@ -119,7 +119,7 @@ class MyCards extends React.Component {
 
 export default connect(
     state => ({
-        ReduxCards: state
+        ReduxCards: state.cards
     }),
     dispatch => ({
         onAddCard: (card, index) => {
