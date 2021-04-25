@@ -20,7 +20,7 @@ const db = new JsonDB(new Config("myDataBase", true, false, '/'));
 const usersDBRoute = '/users';
 
 // Set our backend port to be either an environment variable or port 5000
-const port = process.env['PORT'] || 5000;
+const port = process.env.PORT || 5000;
 
 // This application level middleware prints incoming requests to the servers console
 app.use((req, res, next) => {
@@ -169,9 +169,10 @@ app.post('/api/v1/Application/getCards', function (request, response) {
 });
 
 app.post('/api/v1/register', (request, response) => {
-    if (!request.body.password || !request.body.login || db.exists(usersDBRoute + request.body.login)) {
+    if (!request.body.login || db.exists(usersDBRoute + request.body.login) || !request.body.password) {
         response.status(400);
         response.send(JSON.stringify('invalid login'))
+        return
     }
     const userData = {
       login: request.body.login,
@@ -187,6 +188,7 @@ app.post('/api/v1/authorization', (request, response) => {
     if (!request.body.login || !request.body.password) {
         response.status(400);
         response.send(JSON.stringify('invalid login'))
+        return;
     }
     const isValid = db.getData(usersDBRoute + request.body.login).password === request.body.password;
     if (isValid) {
@@ -200,11 +202,20 @@ app.post('/api/v1/authorization', (request, response) => {
 
 app.post('/api/v1/tokenvalidate', (request, response) => {
     const token = request.body.token;
+    console.log(token)
+    if (!token) {
+        console.log('!token')
+        response.status(400);
+        response.end('invalid token');
+        return;
+    }
+    console.log('im here')
     const decoded = jwt.verify(token, SECRET_KEY);
     const isValidUser = db.exists(usersDBRoute + decoded);
     if (!isValidUser) {
         response.status(400);
-        response.send('invalid token');
+        response.end('invalid token');
+        return;
     }
     response.end(JSON.stringify({ login: decoded }));
 });
