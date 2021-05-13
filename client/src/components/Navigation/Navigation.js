@@ -9,6 +9,7 @@ function Navigation() {
             <li className="nav-item"><Link to={"/Home"}>Главная</Link></li>
             <li className="nav-item"><Link to={"/Application"}>Приложение</Link></li>
             <li className="nav-item"><Link to={"/Logg"}>Войти</Link></li>
+            <li className="nav-item"><Link to={"/news"}>Новости</Link></li>
         </ul>
     );
 }

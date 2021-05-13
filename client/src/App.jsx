@@ -9,6 +9,8 @@ import {Home} from './components/Home/Home'
 import LogRegister from './components/RegAuth/FormWrapper/FormWrapper'
 import SteamApp from "./components/Application/InputAndCardTable/Application";
 import {Chat} from "./components/Chat/Chat";
+import NewsContainer from './components/News'
+import NewsMore from './components/News/news-more-component'
 
 class App extends React.Component{
     componentDidMount(){
@@ -21,6 +23,11 @@ class App extends React.Component{
             return matches ? decodeURIComponent(matches[1]) : undefined;
         }
         const token = getCookie("token");
+
+        if (!token) {
+            return;
+        }
+
         let xhr = new XMLHttpRequest();
         xhr.open('POST', '/api/v1/tokenvalidate', true);
         xhr.setRequestHeader("Content-Type", "application/json");
@@ -52,6 +59,7 @@ class App extends React.Component{
                             <Route path="/Logg" component={LogRegister}/>
                             <Route path="/Application" component={SteamApp}/>
                             <Route path={"/Chat"} component={Chat} />
+                            <Route exact path={["/news", "/news/:id"]} component={NewsContainer}/>
                     </div>
                 </BrowserRouter>
         );
