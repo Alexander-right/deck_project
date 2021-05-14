@@ -28,8 +28,19 @@ export default function(state = InitialState, action) {
 
 export async function fetchArticles(dispatch, getState, arg) {
     const state = getState();
-    const response = await fetch(`https://newsapi.org/v2/everything?q=Apple&from=2021-05-05&pageSize=5&page=${state.news.page}&sortBy=popularity&apiKey=5cb805ea2a2049fabdeade2b6d733227`)
+    const page = state.news.page;
+
+    const response2 = await fetch('/api/v1/get-news',
+        {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({page: page})
+            })
         .then((res) => res.json());
 
-    dispatch({ type: 'FETCH_ARTICLES', payload: { articles: response.articles, articlesCount: response.totalResults }})
+
+    dispatch({ type: 'FETCH_ARTICLES', payload: { articles: response2.articles, articlesCount: response2.totalResults }})
 }

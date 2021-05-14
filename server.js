@@ -12,6 +12,7 @@ const app = express();
 const WebSocket = require('ws');
 const bodyParser = require('body-parser');
 const path = require('path');
+const axios = require('axios');
 
 const { JsonDB } = require('node-json-db');
 const { Config } = require('node-json-db/dist/lib/JsonDBConfig');
@@ -218,6 +219,16 @@ app.post('/api/v1/tokenvalidate', (request, response) => {
         return;
     }
     response.end(JSON.stringify({ login: decoded }));
+});
+
+app.post('/api/v1/get-news', async (request, response) => {
+    console.log('here --------------------------------------------------', request.body)
+    const page = request.body.page;
+    console.log(page, 'page')
+    await axios.get(`https://newsapi.org/v2/everything?q=Apple&from=2021-05-05&pageSize=5&page=${page}&sortBy=popularity&apiKey=5cb805ea2a2049fabdeade2b6d733227`)
+        .then(res => response.send(res.data))
+        .catch(err => console.log(err))
+
 });
 
 
