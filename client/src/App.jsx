@@ -55,11 +55,14 @@ class App extends React.Component{
                 <BrowserRouter>
                     <div className="App">
                             <Navigation/>
-                            <Route path="/Home" component={Home}/>
-                            <Route path="/Logg" component={LogRegister}/>
-                            <Route path="/Application" component={SteamApp}/>
-                            <Route path={"/Chat"} component={Chat} />
-                            <Route exact path={["/news", "/news/:id"]} component={NewsContainer}/>
+                            <div className={'content-home'}>
+                                <Route path="/Home" component={Home}/>
+                                <Route path="/Logg" component={LogRegister}/>
+                                <Route path="/Application" component={SteamApp}/>
+                                <Route path={"/Chat"} component={Chat} />
+                                <Route exact path={["/news", "/news/:id"]} component={NewsContainer}/>
+                            </div>
+                            <div className={'footer'}></div>
                     </div>
                 </BrowserRouter>
         );

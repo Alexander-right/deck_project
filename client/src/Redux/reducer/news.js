@@ -4,6 +4,7 @@ const InitialState = {
     page: 1,
     isFetching: false,
     hasMore: true,
+    fetchedPages: [],
 };
 
 const actionTypes = {
@@ -17,7 +18,8 @@ export default function(state = InitialState, action) {
     switch (action.type) {
         case actionTypes.FETCH_ARTICLES:
             const hasMore = action.payload.articles.length >= 12;
-            return ({...state, fetchedArticles: [...state.fetchedArticles, ...action.payload.articles], articlesCount: action.payload.articlesCount, isFetching: false, hasMore});
+            const fetchedPage = state.page;
+            return ({...state, fetchedArticles: [...state.fetchedArticles, ...action.payload.articles], articlesCount: action.payload.articlesCount, isFetching: false, fetchedPages: [...state.fetchedPages, fetchedPage], hasMore});
         case actionTypes.CHANGE_PAGE:
             return ({...state, page: action.payload});
         case actionTypes.CHANGE_FETCHING:

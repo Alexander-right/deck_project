@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 //import '../../ComponentsCss.scss';
 import PropTypes from 'prop-types'
 import auth from './../Auth/Auth.js';
+import './style.css';
 import * as actionTypes from "../../../Redux/actionTypes";
 
 
@@ -57,12 +58,12 @@ class Form extends Component {
 
     render() {
         return (
-            <form onSubmit={this.SendRequest} className="Authorization">
+            <form onSubmit={this.SendRequest} className="wrapper-form">
                 <input type="text" name={'login'} placeholder={"login"} value={this.state.login}
                        onChange={this.HandleChange} className={this.props.type + "__login"}/>
                 <input type="text" name={'password'} placeholder={"password"} value={this.state.password}
                        onChange={this.HandleChange} className={this.props.type + "__password"}/>
-                <button>{this.props.forButton}</button>
+               <div><div className={'button'}>{this.props.forButton}</div></div>
             </form>
         );
     }

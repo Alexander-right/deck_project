@@ -223,7 +223,7 @@ app.post('/api/v1/tokenvalidate', (request, response) => {
 
 app.post('/api/v1/get-news', async (request, response) => {
     const page = request.body.page;
-    console.log(page, 'page')
+    console.log(page, 'page');
     await axios.get(`https://playhearthstone.com/ru-ru/api/blog/articleList/?page=${page}&pageSize=12&tagsList[]=patch`)
         .then(res => response.send(res.data))
         .catch(err => console.log(err))

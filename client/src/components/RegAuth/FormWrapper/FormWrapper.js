@@ -17,9 +17,12 @@ class LogRegister extends React.Component {
                     <button style={{marginLeft: '16px'}} onClick={this.props.LogOut}>Выход</button>
                   </div>
                 : <div>
-                    <Form forButton={"Авторизироваться"} type={"authorization"}/>
-                    <Form forButton={"Зарегистрироваться"} type={"register"}/>
-                  </div>
+                    <h3 style={{color: 'rgb(97, 67, 38)', marginBottom: '48px'}}>Зарегистрируйтесь или авторизируйтесь в приложении</h3>
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                        <Form forButton={"Авторизироваться"} type={"authorization"}/>
+                        <Form forButton={"Зарегистрироваться"} type={"register"}/>
+                    </div>
+                </div>
         )
     }
 }

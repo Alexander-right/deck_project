@@ -1,4 +1,6 @@
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
   margin: 0 auto;
   background-image: url(images/parchment-f5126a8249a32eb235b139078b4cc13b5fb9d2c29b0e825569312681123d721a1f2e1addb4bad78f979933e561361e2ee2c5f5881ab4fef5385c66c6276c3b44.jpg);
@@ -31,4 +33,14 @@
 }
 #root{
   height: 100%;
+}
+
+.footer {
+  width: 100%;
+  height: 40px;
+  background-image: url("images/bg-footer.jpg");
+}
+
+.content-home {
+  flex: 1 0 auto;
 }

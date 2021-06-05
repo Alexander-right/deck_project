@@ -25,6 +25,7 @@ class NewsContainer extends React.Component {
     }
 
     async componentDidMount() {
+        if (!this.props.news.fetchedPages.includes(this.props.news.page))
         this.fetchArticles()
     }
 
