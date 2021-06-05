@@ -36,7 +36,7 @@ class NewsContainer extends React.Component {
     get formattedArticles() {
         return this.props.news.fetchedArticles && this.props.news.fetchedArticles.map((article, id) => {
             return(
-                <Link to={`/news/${id}`} style={{marginBottom: 24, display: 'block'}}>
+                <Link to={`/news/${id}`} className={'articleLink'} style={{ maxWidth: '600px', marginBottom: 24, display: 'block', color: 'rgb(97, 67, 38)', borderBottom: '1px solid rgba(97, 67, 38, 0.3)'}}>
                     <h4>{article.title}</h4>
                     <span>{article.author}</span>
                 </Link>
@@ -60,7 +60,6 @@ class NewsContainer extends React.Component {
     }
 
     get pagination(){
-        console.log(this.props)
         const pages = Math.ceil(this.props.news.articlesCount / 100);
         console.log(Math.ceil(this.props.news.articlesCount / 100));
         const formattedPages = Array.from({length: pages}, (x, i) => i).map(p => <Link style={{marginRight: 8}} to={`?page=${p+1}`}>{p + 1}</Link>)
@@ -68,29 +67,19 @@ class NewsContainer extends React.Component {
     }
 
     handlePageClick(ev) {
-        this.props.changePage(ev.selected + 1)
+        this.props.changePage(this.props.news.page + 1)
     }
 
 
     render() {
         return (
-            <div>
-                { this.props.news.isFetching && <div class="loader">Loading...</div>}
+            <div style={{padding: '24px'}}>
                 <Route exact path={["/news"]} render={(props) => <AllNews articles={this.formattedArticles}/>}/>
                 <Route exact path={"/news/:id"} render={(props) => <NewsMore content={this.currentArticle}/>}/>
-                <ReactPaginate
-                    previousLabel={"prev"}
-                    nextLabel={"next"}
-                    breakLabel={"..."}
-                    breakClassName={"break-me"}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={this.handlePageClick}
-                    pageCount={20}
-                    containerClassName={"pagination"}
-                    subContainerClassName={"pages pagination"}
-                    activeClassName={"active"}
-                />
+                {!this.props.news.isFetching ?
+                    <div className={'moreButton'} style={{ padding: '8px 16px'}} onClick={this.handlePageClick}>{'Еще'}</div> :
+                    <div className="dot-flashing"></div>
+                }
             </div>
         );
     }

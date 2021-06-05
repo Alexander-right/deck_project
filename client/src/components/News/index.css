@@ -95,3 +95,75 @@
         box-shadow: 0em -2.6em 0em 0em rgba(255,193,7, 0.2), 1.8em -1.8em 0 0em rgba(255,193,7, 0.2), 2.5em 0em 0 0em rgba(255,193,7, 0.2), 1.75em 1.75em 0 0em rgba(255,193,7, 0.2), 0em 2.5em 0 0em rgba(255,193,7, 0.2), -1.8em 1.8em 0 0em rgba(255,193,7, 0.5), -2.6em 0em 0 0em rgba(255,193,7, 0.7), -1.8em -1.8em 0 0em #ffc107;
     }
 }
+
+.moreButton {
+    padding: 4px 8px;
+    width: 80px;
+    margin: 0 auto;
+    border: 1px solid #ae9870;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.moreButton:hover {
+    border-color: #725a37;
+}
+
+.dot-flashing {
+    margin: 0 auto;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dotFlashing 1s infinite linear alternate;
+    animation-delay: .5s;
+}
+
+.dot-flashing::before, .dot-flashing::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+}
+
+.dot-flashing::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dotFlashing 1s infinite alternate;
+    animation-delay: 0s;
+}
+
+.dot-flashing::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #9880ff;
+    color: #9880ff;
+    animation: dotFlashing 1s infinite alternate;
+    animation-delay: 1s;
+}
+
+@keyframes dotFlashing {
+    0% {
+        background-color: #9880ff;
+    }
+    50%,
+    100% {
+        background-color: #ebe6ff;
+    }
+}
+
+.articleLink {
+    padding: 24px;
+}
+
+.articleLink:hover {
+    background-color: rgba(97, 67, 38, 0.1);
+}

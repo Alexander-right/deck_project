@@ -15,12 +15,12 @@ const actionTypes = {
 export default function(state = InitialState, action) {
     switch (action.type) {
         case actionTypes.FETCH_ARTICLES:
-            console.log(action.payload, 'payload');
-            return ({...state, fetchedArticles: action.payload.articles, articlesCount: action.payload.articlesCount, isFetching: false});
+            console.log(state.fetchedArticles, 'payload', action.payload.fetchedArticles);
+            return ({...state, fetchedArticles: [...state.fetchedArticles, ...action.payload.articles], articlesCount: action.payload.articlesCount, isFetching: false});
         case actionTypes.CHANGE_PAGE:
             return ({...state, page: action.payload});
         case actionTypes.CHANGE_FETCHING:
-            return({...state, isFetching: action.payload, fetchedArticles: []});
+            return({...state, isFetching: action.payload});
         default:
             return ({...state})
     }
@@ -42,5 +42,5 @@ export async function fetchArticles(dispatch, getState, arg) {
         .then((res) => res.json());
 
 
-    dispatch({ type: 'FETCH_ARTICLES', payload: { articles: response2.articles, articlesCount: response2.totalResults }})
+    dispatch({ type: 'FETCH_ARTICLES', payload: { articles: response2 }})
 }

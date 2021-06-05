@@ -222,10 +222,9 @@ app.post('/api/v1/tokenvalidate', (request, response) => {
 });
 
 app.post('/api/v1/get-news', async (request, response) => {
-    console.log('here --------------------------------------------------', request.body)
     const page = request.body.page;
     console.log(page, 'page')
-    await axios.get(`https://newsapi.org/v2/everything?q=Apple&from=2021-05-05&pageSize=5&page=${page}&sortBy=popularity&apiKey=5cb805ea2a2049fabdeade2b6d733227`)
+    await axios.get(`https://playhearthstone.com/ru-ru/api/blog/articleList/?page=${page}&pageSize=12&tagsList[]=patch`)
         .then(res => response.send(res.data))
         .catch(err => console.log(err))
 
