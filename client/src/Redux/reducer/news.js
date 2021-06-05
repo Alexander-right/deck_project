@@ -3,6 +3,7 @@ const InitialState = {
     articlesCount: 0,
     page: 1,
     isFetching: false,
+    hasMore: true,
 };
 
 const actionTypes = {
@@ -15,8 +16,8 @@ const actionTypes = {
 export default function(state = InitialState, action) {
     switch (action.type) {
         case actionTypes.FETCH_ARTICLES:
-            console.log(state.fetchedArticles, 'payload', action.payload.fetchedArticles);
-            return ({...state, fetchedArticles: [...state.fetchedArticles, ...action.payload.articles], articlesCount: action.payload.articlesCount, isFetching: false});
+            const hasMore = action.payload.articles.length >= 12;
+            return ({...state, fetchedArticles: [...state.fetchedArticles, ...action.payload.articles], articlesCount: action.payload.articlesCount, isFetching: false, hasMore});
         case actionTypes.CHANGE_PAGE:
             return ({...state, page: action.payload});
         case actionTypes.CHANGE_FETCHING:

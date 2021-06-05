@@ -76,10 +76,8 @@ class NewsContainer extends React.Component {
             <div style={{padding: '24px'}}>
                 <Route exact path={["/news"]} render={(props) => <AllNews articles={this.formattedArticles}/>}/>
                 <Route exact path={"/news/:id"} render={(props) => <NewsMore content={this.currentArticle}/>}/>
-                {!this.props.news.isFetching ?
-                    <div className={'moreButton'} style={{ padding: '8px 16px'}} onClick={this.handlePageClick}>{'Еще'}</div> :
-                    <div className="dot-flashing"></div>
-                }
+                {!this.props.news.isFetching && this.props.news.hasMore && <div className={'moreButton'} style={{ padding: '8px 16px'}} onClick={this.handlePageClick}>{'Еще'}</div>}
+                {this.props.news.isFetching && <div className="dot-flashing"></div>}
             </div>
         );
     }
