@@ -24,7 +24,7 @@ class NewsContainer extends React.Component {
         this.fetchArticles = this.fetchArticles.bind(this)
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         if (!this.props.news.fetchedPages.includes(this.props.news.page))
         this.fetchArticles()
     }
@@ -37,7 +37,18 @@ class NewsContainer extends React.Component {
     get formattedArticles() {
         return this.props.news.fetchedArticles && this.props.news.fetchedArticles.map((article, id) => {
             return(
-                <Link to={`/news/${id}`} className={'articleLink'} style={{ maxWidth: '600px', marginBottom: 24, display: 'block', color: 'rgb(97, 67, 38)', borderBottom: '1px solid rgba(97, 67, 38, 0.3)'}}>
+                <Link to={`/news/${id}`}
+                      className={'articleLink'}
+                      style={
+                          {
+                              maxWidth: '600px',
+                              marginBottom: 24,
+                              display: 'block',
+                              color: 'rgb(97, 67, 38)',
+                              borderBottom: '1px solid rgba(97, 67, 38, 0.3)'
+                          }
+                      }
+                >
                     <h4>{article.title}</h4>
                     <span>{article.author}</span>
                 </Link>
@@ -56,8 +67,7 @@ class NewsContainer extends React.Component {
         if (!Number.isInteger(id)) {
             return;
         }
-
-        return this.props.news.fetchedArticles[id]
+        return this.props.news.fetchedArticles[id];
     }
 
     get pagination(){

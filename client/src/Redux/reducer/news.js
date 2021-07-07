@@ -6,20 +6,25 @@ const InitialState = {
     hasMore: true,
     fetchedPages: [],
 };
-
 const actionTypes = {
     FETCH_ARTICLES: 'FETCH_ARTICLES',
     CHANGE_PAGE: 'CHANGE_PAGE',
     CHANGE_FETCHING: 'CHANGE_FETCHING',
 };
 
-
 export default function(state = InitialState, action) {
     switch (action.type) {
         case actionTypes.FETCH_ARTICLES:
             const hasMore = action.payload.articles.length >= 12;
             const fetchedPage = state.page;
-            return ({...state, fetchedArticles: [...state.fetchedArticles, ...action.payload.articles], articlesCount: action.payload.articlesCount, isFetching: false, fetchedPages: [...state.fetchedPages, fetchedPage], hasMore});
+            return ({
+                ...state,
+                fetchedArticles: [...state.fetchedArticles, ...action.payload.articles],
+                articlesCount: action.payload.articlesCount,
+                isFetching: false,
+                fetchedPages: [...state.fetchedPages, fetchedPage],
+                hasMore
+            });
         case actionTypes.CHANGE_PAGE:
             return ({...state, page: action.payload});
         case actionTypes.CHANGE_FETCHING:
@@ -43,7 +48,5 @@ export async function fetchArticles(dispatch, getState, arg) {
                 body: JSON.stringify({page: page})
             })
         .then((res) => res.json());
-
-
     dispatch({ type: 'FETCH_ARTICLES', payload: { articles: response2 }})
 }

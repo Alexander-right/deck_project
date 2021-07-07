@@ -15,11 +15,11 @@ class Application extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.getCardByClass = this.getCardByClass.bind(this);
+        this.getCardsBySearch = this.getCardsBySearch.bind(this);
         this.getCard = this.getCard.bind(this)
     }
 
-    getCardByClass = function (e) {
+    getCardsBySearch = function (e) {
         e.preventDefault();
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/api/v1/Application/getCards', true);
@@ -62,7 +62,7 @@ class Application extends React.Component {
                 <div className="App__search">
                     <input type="text" onChange={this.handleChange} value={this.state.value}
                            placeholder={"Введите расу, класс или фракцию карты"} className={"col-sm-6 col-md-5"}/>
-                    <button className="App__button col-sm-2 col-md-1" onClick={this.getCardByClass}>Поиск</button>
+                    <button className="App__button col-sm-2 col-md-1" onClick={this.getCardsBySearch}>Поиск</button>
                 </div>
                 <div className="cards-wrapper col-12">
                     <div className="App__result col-7 mt-4">

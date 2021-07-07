@@ -176,6 +176,7 @@ app.post('/api/v1/register', (request, response) => {
         return
     }
     const userData = {
+      userId: generetaeUniqueId(),
       login: request.body.login,
       password: request.body.password,
       token: jwt.sign(request.body.login, SECRET_KEY),
@@ -185,7 +186,6 @@ app.post('/api/v1/register', (request, response) => {
 });
 
 app.post('/api/v1/authorization', (request, response) => {
-    console.log(request.body)
     if (!request.body.login || !request.body.password) {
         response.status(400);
         response.send(JSON.stringify('invalid login'))
@@ -203,14 +203,14 @@ app.post('/api/v1/authorization', (request, response) => {
 
 app.post('/api/v1/tokenvalidate', (request, response) => {
     const token = request.body.token;
-    console.log(token)
+
     if (!token) {
-        console.log('!token')
+        console.log('!token');
         response.status(400);
         response.end('invalid token');
         return;
     }
-    console.log('im here')
+
     const decoded = jwt.verify(token, SECRET_KEY);
     const isValidUser = db.exists(usersDBRoute + decoded);
     if (!isValidUser) {
@@ -218,6 +218,7 @@ app.post('/api/v1/tokenvalidate', (request, response) => {
         response.end('invalid token');
         return;
     }
+
     response.end(JSON.stringify({ login: decoded }));
 });
 
@@ -242,3 +243,6 @@ app.listen(port, () => {
     console.log(`BACK_END_SERVICE_PORT: ${port}`)
 });
 
+function generetaeUniqueId (){
+    return '_' + Math.random().toString(36).substr(2, 9);
+}

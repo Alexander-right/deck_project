@@ -7,7 +7,8 @@ import { Route } from 'react-router';
 import auth from './components/RegAuth/Auth/Auth'
 import {Home} from './components/Home/Home'
 import LogRegister from './components/RegAuth/FormWrapper/FormWrapper'
-import SteamApp from "./components/Application/InputAndCardTable/Application";
+import DeckManager from "./components/Application/InputAndCardTable/Application";
+import unAuth from "./components/Application/InputAndCardTable/unauth"
 import {Chat} from "./components/Chat/Chat";
 import NewsContainer from './components/News'
 import NewsMore from './components/News/news-more-component'
@@ -50,7 +51,14 @@ class App extends React.Component{
         const data = JSON.stringify({ "token": token});
         xhr.send(data);
     }
-    render(){
+
+    get component() {
+        return this.props.login.authenticated ? DeckManager : unAuth;
+    }
+
+    render() {
+        console.log(this.props.login)
+
         return(
                 <BrowserRouter>
                     <div className="App">
@@ -58,7 +66,7 @@ class App extends React.Component{
                             <div className={'content-home'}>
                                 <Route path="/Home" component={Home}/>
                                 <Route path="/Logg" component={LogRegister}/>
-                                <Route path="/Application" component={SteamApp}/>
+                                <Route path="/Application" component={this.component}/>
                                 <Route path={"/Chat"} component={Chat} />
                                 <Route exact path={["/news", "/news/:id"]} component={NewsContainer}/>
                             </div>
@@ -71,7 +79,7 @@ class App extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        Auth: state.auth
+        login: state.auth
     }
 };
 

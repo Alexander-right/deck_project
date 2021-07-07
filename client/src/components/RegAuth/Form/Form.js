@@ -49,7 +49,6 @@ class Form extends Component {
         };
         let data = JSON.stringify({"login": this.state.login, "password": this.state.password});
         xhr.send(data);
-       // xhr.setRequestHeader("Cookie", xhr.responseText);
     };
 
     HandleChange(e) {
@@ -63,7 +62,7 @@ class Form extends Component {
                        onChange={this.HandleChange} className={this.props.type + "__login"}/>
                 <input type="text" name={'password'} placeholder={"password"} value={this.state.password}
                        onChange={this.HandleChange} className={this.props.type + "__password"}/>
-               <div><div className={'button'}>{this.props.forButton}</div></div>
+               <div><div className={'button'} onClick={this.SendRequest}>{this.props.forButton}</div></div>
             </form>
         );
     }
