@@ -15,7 +15,3 @@ code {
 html,body{
   height: 100%;
 }
-@font-face {
-  font-family: Belwe-Bold;
-  src: url('/public/fonts/Belwe-Bold.woff') format('woff');
-}
